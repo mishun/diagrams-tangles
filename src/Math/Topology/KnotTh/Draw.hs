@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts, FlexibleInstances, TypeFamilies #-}
 module Math.Topology.KnotTh.Draw
     ( DrawKnotSettings(..)
     , DrawableKnotted(..)
@@ -14,11 +14,10 @@ import Data.List (groupBy, maximumBy)
 import Data.Maybe (fromJust)
 import Data.Ord (comparing)
 import qualified Data.Vector.Unboxed as UV
-
 import Diagrams.Prelude
 import Diagrams.TwoD.Text (Text)
-
 import Math.Topology.KnotTh.SurfaceGraph
+import Math.Topology.KnotTh.SurfaceGraph.Embedding
 import Math.Topology.KnotTh.Knotted.Threads
 import Math.Topology.KnotTh.Tangle
 import Math.Topology.KnotTh.EmbeddedLink

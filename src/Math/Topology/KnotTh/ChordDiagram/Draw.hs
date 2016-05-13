@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts, MultiWayIf, TypeFamilies #-}
 module Math.Topology.KnotTh.ChordDiagram.Draw
     ( DrawCDSettings(..)
     , drawCDInsideCircle

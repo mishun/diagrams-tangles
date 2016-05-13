@@ -5,7 +5,6 @@ module Math.Topology.KnotTh.SurfaceGraph.Embedding.Optimization
     , circlePacking'
     ) where
 
-import Control.Applicative ((<$>), (<*>))
 import Control.Monad (forM_, void, liftM)
 import Data.Array.Base (newArray, newArray_, newListArray, readArray, writeArray, getElems)
 import Data.Array.Storable (StorableArray, withStorableArray)
