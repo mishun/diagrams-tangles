@@ -20,14 +20,16 @@ matrix:
             - libgsl0-dev
             - libgmp-dev
             - c2hs
+      env: GCC=gcc-4.9
 
 before_install:
   - mkdir -p ~/.local/bin
   - export PATH=$HOME/.local/bin:$PATH
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+  - export ARGS="--no-terminal --ghc-options=-pgmc=$GCC"
 
 install:
-  - stack --install-ghc build --only-dependencies --no-terminal --ghc-options="-pgmc gcc-4.9"
+  - stack --install-ghc build $ARGS
 
 script:
-  - stack build --no-terminal --ghc-options="-pgmc gcc-4.9"
+  - stack build $ARGS
