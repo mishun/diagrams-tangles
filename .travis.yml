@@ -1,8 +1,5 @@
 sudo: false
-language: cpp
-
-compiler:
-  - gcc-4.8
+language: c
 
 cache:
   directories:
@@ -10,12 +7,19 @@ cache:
   - $HOME/.cabal
   - $HOME/.stack
 
-addons:
-  apt:
-    packages:
-    - libgsl0-dev
-    - libgmp-dev
-    - c2hs
+matrix:
+  include:
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-4.9
+            - g++-4.9
+            - libgsl0-dev
+            - libgmp-dev
+            - c2hs
 
 before_install:
   - mkdir -p ~/.local/bin
@@ -23,7 +27,7 @@ before_install:
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
 install:
-  - stack --no-terminal --install-ghc build --only-dependencies
+  - stack --install-ghc build --only-dependencies --no-terminal --ghc-options="-pgmc gcc-4.9"
 
 script:
-  - stack --no-terminal build
+  - stack build --no-terminal --ghc-options="-pgmc gcc-4.9"
