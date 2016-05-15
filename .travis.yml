@@ -9,27 +9,51 @@ cache:
 
 matrix:
   include:
-    - compiler: gcc
+    - compiler: "stack default"
+      env: ARGS="--ghc-options=-pgmc=gcc-4.9"
       addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-4.9
-            - g++-4.9
-            - libgsl0-dev
-            - libgmp-dev
-            - c2hs
-      env: GCC=gcc-4.9
+          sources: [ubuntu-toolchain-r-test]
+          packages: [g++-4.9, libgsl0-dev, libgmp-dev]
+
+    - compiler: "stack 7.8.4"
+      env: ARGS="--ghc-options=-pgmc=gcc-4.9 --resolver=lts-2"
+      addons:
+        apt:
+          sources: [hvr-ghc, ubuntu-toolchain-r-test]
+          packages: [g++-4.9, libgsl0-dev, ghc-7.8.4]
+
+    - compiler: "stack 7.10.2"
+      env: ARGS="--ghc-options=-pgmc=gcc-4.9 --resolver=lts-3"
+      addons:
+        apt:
+          sources: [hvr-ghc, ubuntu-toolchain-r-test]
+          packages: [g++-4.9, libgsl0-dev, ghc-7.10.2]
+
+    - compiler: "stack 7.10.3"
+      env: ARGS="--ghc-options=-pgmc=gcc-4.9 --resolver=lts-5"
+      addons:
+        apt:
+          sources: [hvr-ghc, ubuntu-toolchain-r-test]
+          packages: [g++-4.9, libgsl0-dev, ghc-7.10.3]
+
+    - compiler: "stack nightly"
+      env: ARGS="--ghc-options=-pgmc=gcc-4.9 --resolver=nightly"
+      addons:
+        apt:
+          sources: [ubuntu-toolchain-r-test]
+          packages: [g++-4.9, libgsl0-dev, libgmp-dev]
+
+  allow_failures:
+    - compiler: "stack nightly"
 
 before_install:
   - mkdir -p ~/.local/bin
   - export PATH=$HOME/.local/bin:$PATH
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-  - export ARGS="--no-terminal --ghc-options=-pgmc=$GCC"
 
 install:
-  - stack --install-ghc build $ARGS
+  - stack --no-terminal -j2 --install-ghc build $ARGS --only-dependencies
 
 script:
-  - stack build $ARGS
+  - stack --no-terminal -j2 build $ARGS

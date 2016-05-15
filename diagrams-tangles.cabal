@@ -20,6 +20,7 @@ library
     ghc-options:        -Wall
     ghc-prof-options:   -prof -auto-all -caf-all
     cc-options:         -Wall -std=c++11
+    build-tools:        c2hs
     build-depends:
         base >=4.6,
         vector >=0.10,
