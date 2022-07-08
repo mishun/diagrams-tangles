@@ -1,15 +1,13 @@
 resolver: lts-5.16
 
 packages:
-- '.'
-- location:
-    git: https://github.com/mishun/tangles.git
-    commit: HEAD
-  extra-dep: true
+- .
 
 extra-deps:
 - HaskellForMaths-0.4.8
 - disjoint-set-0.2
+- git: https://github.com/mishun/tangles.git
+  commit: 9af39dd48e3dcc5e3944f8d060c8769ff3d81d02
 
 flags:
   tangles:
